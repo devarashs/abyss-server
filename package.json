@@ -1,8 +1,8 @@
 {
-  "name": "mylocalportfolio-backend",
+  "name": "abyss-server",
   "type": "module",
   "version": "1.0.0",
-  "description": "Backend For MyLocalPortfolio",
+  "description": "abyss dedicated Node JS Server",
   "main": "index.js",
   "scripts": {
     "dev": "nodemon server.js",
