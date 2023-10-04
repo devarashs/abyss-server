@@ -8,7 +8,13 @@ const userSchema = new mongoose.Schema(
     isAdmin: { type: Boolean, default: false, required: true },
     isCreator: { type: Boolean, default: false, required: true },
     abyssBalance: { type: String, default: 1024, required: false },
-    watchList: { type: Array, default: [], required: false },
+    watchList: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Card",
+        required: true,
+      },
+    ],
   },
   {
     timestamps: true,

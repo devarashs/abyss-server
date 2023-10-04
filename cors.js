@@ -2,7 +2,6 @@
 import cors from "cors";
 // Allow a specific address to access the server (replace with the actual addresses)
 const allowedOrigin = [
-  "https://mlfp.chill-hub.net",
   "https://abyss.chill-hub.net",
   "http://localhost:4173",
   "http://localhost:4174",

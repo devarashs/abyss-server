@@ -1,6 +1,8 @@
 import express from "express";
 import expressAsyncHandler from "express-async-handler";
 import Card from "../models/cardModel.js";
+import Like from "../models/likeModel.js";
+import Comment from "../models/commentModel.js";
 import { isAdmin, isAuth, isCreator } from "../utils.js";
 
 const cardRouter = express.Router();
@@ -11,10 +13,11 @@ cardRouter.get("/", async (req, res) => {
 });
 
 cardRouter.get(
-  "/mine",
+  "/mycreations",
   isAuth,
+  isCreator,
   expressAsyncHandler(async (req, res) => {
-    const card = await cardRouter.find({ owner: req.user._id });
+    const card = await Card.find({ creator: req.user._id });
     res.send(card);
   })
 );
