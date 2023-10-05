@@ -3,7 +3,7 @@ import expressAsyncHandler from "express-async-handler";
 import Card from "../models/cardModel.js";
 import Like from "../models/likeModel.js";
 import Comment from "../models/commentModel.js";
-import { isAdmin, isAuth, isCreator } from "../utils.js";
+import { isAuth, isCreator } from "../utils.js";
 
 const cardRouter = express.Router();
 
@@ -25,6 +25,7 @@ cardRouter.get(
 cardRouter.get(
   "/mine/:slug",
   isAuth,
+  isCreator,
   expressAsyncHandler(async (req, res) => {
     const card = await Card.find({
       owner: req.user._id,
@@ -73,6 +74,7 @@ cardRouter.post(
 cardRouter.put(
   "/:id",
   isAuth,
+  isCreator,
   expressAsyncHandler(async (req, res) => {
     const card = await Card.findById(req.params.id);
     if (card.creator !== req.user._id) {
@@ -102,7 +104,7 @@ cardRouter.put(
 cardRouter.delete(
   "/:id",
   isAuth,
-  isAdmin,
+  isCreator,
   expressAsyncHandler(async (req, res) => {
     const card = await Card.findById(req.params.id);
     if (card.creator !== req.user._id) {
