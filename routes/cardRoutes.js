@@ -12,6 +12,18 @@ cardRouter.get("/", async (req, res) => {
   res.send(cards);
 });
 
+cardRouter.get("/filter", async (req, res) => {
+  if (req.query.frameType === "all") {
+    const cards = await Card.find();
+    res.send(cards);
+  } else {
+    const cards = await Card.find({
+      frameType: req.query.frameType,
+    });
+    res.send(cards);
+  }
+});
+
 cardRouter.get(
   "/mycreations",
   isAuth,
@@ -21,6 +33,19 @@ cardRouter.get(
     res.send(card);
   })
 );
+
+cardRouter.get("/mycreations/filter", isAuth, isCreator, async (req, res) => {
+  if (req.query.frameType === "all") {
+    const cards = await Card.find({ creator: req.user._id });
+    res.send(cards);
+  } else {
+    const cards = await Card.find({
+      creator: req.user._id,
+      frameType: req.query.frameType,
+    });
+    res.send(cards);
+  }
+});
 
 cardRouter.get(
   "/mine/:slug",
